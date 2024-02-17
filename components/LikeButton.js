@@ -1,29 +1,33 @@
 import { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import CountFormat from './CountFormat';
+import { Pressable } from 'react-native';
+import colors from '../constants/colors';
 
 export default function LikeButton({ onPress, count }) {
   const [liked, setLiked] = useState(false);
   const [likesCount, setlikesCount] = useState(count);
   return (
-    <View style={styles.container}>
+    <Pressable
+      style={styles.container}
+      onPress={() => {
+        if (onPress) onPress();
+        setLiked((val) => {
+          let c = likesCount;
+          val ? c-- : c++;
+          setlikesCount(c);
+          return !val;
+        });
+      }}
+    >
       <Icon
         name={liked ? 'heart' : 'heart-o'}
-        color={liked ? 'red' : '#ccc'}
+        color={liked ? 'red' : colors.grey}
         size={20}
-        onPress={() => {
-          if (onPress) onPress();
-          setLiked((val) => {
-            let c = likesCount;
-            val ? c-- : c++;
-            setlikesCount(c);
-            return !val;
-          });
-        }}
       />
       <CountFormat count={likesCount} />
-    </View>
+    </Pressable>
   );
 }
 const styles = StyleSheet.create({

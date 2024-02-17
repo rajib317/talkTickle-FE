@@ -1,4 +1,14 @@
 {
+  "login": [
+    {
+      "id": 1,
+      "msg": "Logged In"
+    },
+    {
+      "id": "0c51",
+      "email": ""
+    }
+  ],
   "post-items": [
     {
       "id": 1,
@@ -7,19 +17,18 @@
       "isFollowing": false,
       "images": [
         {
-          "uri": "https://picsum.photos/id/1/300/300",
-          "thumb": "https://picsum.photos/id/1/300/300"
-        },
-        {
-          "uri": "https://picsum.photos/id/2/300/300",
-          "thumb": "https://picsum.photos/id/2/300/300"
-        },
-        {
           "uri": "https://picsum.photos/id/10/300/300",
           "thumb": "https://picsum.photos/id/10/300/300"
+        },
+        {
+          "uri": "https://picsum.photos/id/11/300/300",
+          "thumb": "https://picsum.photos/id/11/300/300"
+        },
+        {
+          "uri": "https://picsum.photos/id/13/300/300",
+          "thumb": "https://picsum.photos/id/13/300/300"
         }
       ],
-
       "user": {
         "id": 1,
         "name": "Dr. Teddy",
@@ -44,7 +53,6 @@
           ]
         }
       },
-
       "comments": {
         "count": 2323,
         "items": [
@@ -55,16 +63,18 @@
               "pic": "https://picsum.photos/20/20"
             },
             "message": {
-              "original": "Sure I wan to help",
-              "corrected": "I want to help."
+              "originalText": "Sure I wan to help",
+              "correctedText": "I want to help."
             }
           },
           {
-            "id": 1,
-            "name": "issa",
-            "pic": "https://picsum.photos/20/20",
+            "user": {
+              "id": 1,
+              "name": "issa",
+              "pic": "https://picsum.photos/20/20"
+            },
             "message": {
-              "original": "@Rajib Thank you! 😭"
+              "originalText": "@Rajib Thank you! 😭"
             }
           },
           {
@@ -74,7 +84,7 @@
               "pic": "https://picsum.photos/20/20"
             },
             "message": {
-              "original": "Chinese is easy peasy"
+              "originalText": "Chinese is easy peasy"
             }
           }
         ]
@@ -84,7 +94,6 @@
       "id": 2,
       "content": "素敵な皆さん、おはようございます！大丈夫ですか？",
       "likesCount": 0,
-
       "images": [
         {
           "uri": "https://picsum.photos/id/1/300/300",
@@ -113,7 +122,6 @@
           ]
         }
       },
-
       "comments": {
         "count": 10,
         "items": [
@@ -124,16 +132,8 @@
               "pic": "https://picsum.photos/20/20"
             },
             "message": {
-              "original": "Sure I wan to help",
-              "corrected": "I want to help."
-            }
-          },
-          {
-            "id": 1,
-            "name": "issa",
-            "pic": "https://picsum.photos/20/20",
-            "message": {
-              "original": "@Rajib Thank you! 😭"
+              "originalText": "Sure I wan to help",
+              "correctedText": "I want to help."
             }
           },
           {
@@ -143,7 +143,7 @@
               "pic": "https://picsum.photos/20/20"
             },
             "message": {
-              "original": "Chinese is easy peasy"
+              "originalText": "Chinese is easy peasy"
             }
           }
         ]
@@ -153,7 +153,6 @@
       "id": 3,
       "content": "Apples or oranges which is a healthier choice? Or comparing them is just bananas?",
       "likesCount": 999,
-
       "user": {
         "id": 1,
         "name": "Caleb",
@@ -176,7 +175,6 @@
           ]
         }
       },
-
       "comments": {
         "count": 99,
         "items": [
@@ -187,16 +185,8 @@
               "pic": "https://picsum.photos/20/20"
             },
             "message": {
-              "original": "Sure I wan to help",
-              "corrected": "I want to help."
-            }
-          },
-          {
-            "id": 1,
-            "name": "issa",
-            "pic": "https://picsum.photos/20/20",
-            "message": {
-              "original": "@Rajib Thank you! 😭"
+              "originalText": "Sure I wan to help",
+              "correctedText": "I want to help."
             }
           },
           {
@@ -206,7 +196,7 @@
               "pic": "https://picsum.photos/20/20"
             },
             "message": {
-              "original": "Chinese is easy peasy"
+              "originalText": "Chinese is easy peasy"
             }
           }
         ]
@@ -216,7 +206,6 @@
       "id": 4,
       "content": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
       "likesCount": 423238,
-
       "user": {
         "id": 1,
         "name": "Alex",
@@ -238,45 +227,12 @@
             }
           ]
         }
-      },
-
-      "comments": [
-        {
-          "user": {
-            "id": 2,
-            "name": "Rajib",
-            "pic": "https://picsum.photos/20/20"
-          },
-          "message": {
-            "original": "Sure I wan to help",
-            "corrected": "I want to help."
-          }
-        },
-        {
-          "id": 1,
-          "name": "issa",
-          "pic": "https://picsum.photos/20/20",
-          "message": {
-            "original": "@Rajib Thank you! 😭"
-          }
-        },
-        {
-          "user": {
-            "id": 3,
-            "name": "Rajib Sinha",
-            "pic": "https://picsum.photos/20/20"
-          },
-          "message": {
-            "original": "Chinese is easy peasy"
-          }
-        }
-      ]
+      }
     },
     {
       "id": 5,
       "content": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
       "likesCount": 3242340,
-
       "user": {
         "id": 1,
         "name": "Anna Dziubinska",
@@ -304,7 +260,6 @@
       "id": 6,
       "content": "Hola Amigo!",
       "likesCount": 1003242340,
-
       "user": {
         "id": 1,
         "name": "Anna Dziubinska",

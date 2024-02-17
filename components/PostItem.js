@@ -4,6 +4,9 @@ import CardBottom from './CardBottom';
 import LikeButton from './LikeButton';
 import CommentButton from './CommentButton';
 import FollowButton from './FollowButton';
+import Comments from './Comments';
+import colors from '../constants/colors';
+import CorrectButton from './CorrectButton';
 
 function getLavel(level) {
   if (level == 4) return 'native';
@@ -46,7 +49,11 @@ export default function PostItem({ item }) {
           </View>
         </View>
 
-        <FollowButton isFollowing={item.user.isFollowing} />
+        <FollowButton
+          color={colors.primary}
+          textColor='white'
+          isFollowing={item.user.isFollowing}
+        />
       </View>
 
       <Text>{item.content}</Text>
@@ -66,7 +73,9 @@ export default function PostItem({ item }) {
           count={item?.comments?.count || 0}
           onPress={() => alert('Comment screen')}
         />
+        <CorrectButton />
       </CardBottom>
+      {'comments' in item && <Comments comments={item.comments.items} />}
     </Card>
   );
 }
@@ -129,7 +138,7 @@ const styles = StyleSheet.create({
     },
   },
   cardBottom: {
-    alignItems: 'baseline',
+    alignItems: 'center',
     columnGap: 20,
   },
 });

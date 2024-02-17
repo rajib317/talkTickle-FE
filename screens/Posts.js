@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import Doc from '../components/Doc';
 import PostItem from '../components/PostItem';
 import Nav from '../components/Nav';
+import baseUrl from '../constants/baseUrl';
 export default Posts = () => {
   const [posts, setPosts] = useState([]);
   useEffect(() => {

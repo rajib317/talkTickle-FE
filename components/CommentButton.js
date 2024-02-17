@@ -1,13 +1,15 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/Fontisto';
 import CountFormat from './CountFormat';
+import { Pressable } from 'react-native';
+import colors from '../constants/colors';
 
 export default function CommentButton({ onPress, count }) {
   return (
-    <View style={styles.container}>
-      <Icon name='comment' color='#ccc' size={18} onPress={onPress} />
+    <Pressable style={styles.container} onPress={onPress}>
+      <Icon name='comment' color={colors.grey} size={18} />
       <CountFormat count={count} />
-    </View>
+    </Pressable>
   );
 }
 const styles = StyleSheet.create({
