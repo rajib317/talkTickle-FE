@@ -1,13 +1,15 @@
 import { StyleSheet, View, Text, SafeAreaView, StatusBar } from 'react-native';
 import Splash from './screens/Splash';
 import Posts from './screens/Posts';
+import Login from './screens/Login';
 export default function () {
   return (
     <SafeAreaView style={styles.safeContainer}>
       <StatusBar backgroundColor='white' barStyle='dark-content' />
       <View style={styles.container}>
         {/* <Splash /> */}
-        <Posts />
+        {/* <Posts /> */}
+        <Login />
       </View>
     </SafeAreaView>
   );
