@@ -1,31 +1,47 @@
 import { Alert, Image, StyleSheet, Text, TextInput, View } from 'react-native';
 import color from '../constants/colors';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import baseUrl from '../constants/baseUrl';
-import axios from 'axios';
+import axios from '../api/axios';
 import NextPrevButton from '../components/NextPrevButton';
 import Button from '../components/Button';
 import colors from '../constants/colors';
-export default function Login() {
-  const [loginLevel, setLoginLevel] = useState([0]);
-  const [loading, setLoading] = useState(false);
-  const [email, setEmail] = useState('');
-  const [pin, setPin] = useState('');
-  const [password, setPassword] = useState('');
-  const [password1, setPassword1] = useState('');
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import AuthContext from '../contexts/AuthProvider';
+
+export default function Login({ navigation }) {
+  // const [loginLevel, setLoginLevel] = useState([0]);
+  const {
+    login,
+    loginLevel,
+    verifyPin,
+    email,
+    setEmail,
+    password,
+    setPassword,
+    password1,
+    setPassword1,
+    pin,
+    setPin,
+    setLoginLevel,
+    checkUser,
+  } = useContext(AuthContext);
 
   const precessLogin = async () => {
-    console.log(loginLevel);
     let url = '';
     let payload = {};
     setLoading(true);
+
     if (loginLevel.at(-1) === 0) {
-      url = baseUrl + '/auth/login';
+      // returns loginLevel 1 or 2
+      url = baseUrl + '/auth/check-user';
       payload = {
         email,
       };
     }
     if (loginLevel.at(-1) === 1) {
+      // returns loginLevel 2
       url = baseUrl + '/auth/set-password';
       payload = {
         email,
@@ -33,41 +49,75 @@ export default function Login() {
       };
     }
     if (loginLevel.at(-1) === 2) {
+      // returns loginLevel 3
+      url = baseUrl + '/auth/login';
+      payload = {
+        email,
+        password,
+      };
+    }
+    if (loginLevel.at(-1) === 3) {
+      // resurns loginLevel 4, thus accessToken refreshToken
       url = baseUrl + '/auth/verify-pin';
       payload = {
         email,
         pin,
       };
     }
+    sendData(url, payload);
+  };
+
+  const sendData = async (url, payload) => {
     try {
       const res = await axios.post(url, payload);
-      setLoginLevel((val) => [...val, res.data.loginLevel]);
+      console.log('res', res);
+      if (res.data.loginLevel === 4) {
+        const accessToken = res.data.accessToken;
+        const refreshToken = res.data.refreshToken;
+        // AsyncStorage.setItem('acessToken', res.data.acessToken);
+        // AsyncStorage.setItem('refreshToken', res.data.refreshToken);
+        // setAuth((val) => {
+        //   return { ...val, accessToken, refreshToken };
+        // });
+        // navigation.navigate('Posts');
+      }
       alert(res.data.message);
+      setLoginLevel((val) => [...val, res.data.loginLevel]);
     } catch (error) {
-      if (axios.isAxiosError(error))
-        return alert(error.response.data.error.message);
-      alert(error.message);
+      alert(error?.response?.data?.error?.message || error.message);
     } finally {
       setLoading(false);
     }
   };
-
+  console.log(loginLevel);
   return (
     <View style={styles.container}>
       <Image style={styles.logo} source={require('../assets/icon.png')} />
-      <Text>{loginLevel}</Text>
-      {loginLevel.at(-1) === 0 && (
-        <TextInput
-          style={styles.input}
-          value={email}
-          onChangeText={(val) => setEmail(val)}
-          placeholder='Email'
-          cursorColor={color.secondary}
-          inputMode='email'
-        />
+      {/* <Text>{state1.steps.map((e) => e).join(' ')}</Text>
+      <NextPrevButton
+        type='right'
+        backgroundColor={color.primary}
+        onPress={() => dispatch1({ type: '+' })}
+      /> */}
+      {loginLevel && loginLevel.at(-1) === 0 && (
+        <>
+          <TextInput
+            style={styles.input}
+            value={email}
+            onChangeText={(val) => setEmail(val)}
+            placeholder='Email'
+            cursorColor={color.secondary}
+            inputMode='email'
+          />
+          <NextPrevButton
+            type='right'
+            backgroundColor={color.primary}
+            onPress={() => checkUser(email)}
+          />
+        </>
       )}
-      {loginLevel.at(-1) === 1 && (
-        <View>
+      {loginLevel && loginLevel.at(-1) === 1 && (
+        <>
           <TextInput
             style={styles.input}
             value={password}
@@ -82,9 +132,30 @@ export default function Login() {
             placeholder='Confirm Password'
             cursorColor={color.secondary}
           />
-        </View>
+          <NextPrevButton
+            type='right'
+            backgroundColor={color.primary}
+            onPress={() => login(email, password, 'set_password')}
+          />
+        </>
       )}
-      {loginLevel.at(-1) === 2 && (
+      {loginLevel && loginLevel.at(-1) === 2 && (
+        <>
+          <TextInput
+            style={styles.input}
+            value={password}
+            onChangeText={(val) => setPassword(val)}
+            placeholder='Enter Password'
+            cursorColor={color.secondary}
+          />
+          <NextPrevButton
+            type='right'
+            backgroundColor={color.primary}
+            onPress={() => login(email, password)}
+          />
+        </>
+      )}
+      {loginLevel && loginLevel.at(-1) === 3 && (
         <>
           <TextInput
             style={styles.input}
@@ -93,25 +164,47 @@ export default function Login() {
             placeholder='Verify Pin'
             cursorColor={color.secondary}
             inputMode='numeric'
-            loading={loading}
+          />
+          <Button
+            title='Resend Email'
+            onPress={async () => {
+              url = baseUrl + '/auth/login';
+              payload = {
+                email,
+                password,
+              };
+              await sendData(url, payload);
+              alert('Pin sent. Please check email.');
+            }}
+          />
+
+          <NextPrevButton
+            type='right'
+            backgroundColor={color.primary}
+            onPress={() => verifyPin(email, pin)}
           />
         </>
       )}
 
-      <NextPrevButton
+      {/* we were here */}
+
+      {/* <NextPrevButton
         type='right'
         backgroundColor={color.primary}
         onPress={precessLogin}
+      /> */}
+      {/* <NextPrevButton
+        type='right'
+        backgroundColor={color.primary}
+        onPress={login}
+      /> */}
+      <NextPrevButton
+        type='left'
+        backgroundColor={color.grey}
+        onPress={() => {
+          if (loginLevel.length > 1) setLoginLevel((val) => val.slice(0, -1));
+        }}
       />
-      {loginLevel.at(-1) !== 3 && loginLevel.at(-1) !== 0 && (
-        <NextPrevButton
-          type='left'
-          backgroundColor={color.grey}
-          onPress={async () => {
-            if (loginLevel.length > 1) setLoginLevel((val) => val.slice(0, -1));
-          }}
-        />
-      )}
     </View>
   );
 }

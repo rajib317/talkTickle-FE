@@ -1,6 +1,8 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { docItems } from '../constants/staticValues';
+import LogoutButton from './LogoutButton';
+import colors from '../constants/colors';
 
 export default function Doc() {
   return (
@@ -15,6 +17,7 @@ export default function Doc() {
           <Text>{item.title}</Text>
         </Pressable>
       ))}
+      <LogoutButton style={styles.docItem} size={22} />
     </View>
   );
 }

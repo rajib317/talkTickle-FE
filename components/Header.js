@@ -1,12 +1,9 @@
 import { Image, StyleSheet, View } from 'react-native';
 import Icon from 'react-native-vector-icons/EvilIcons';
 import NotificationIcon from './NotificationIcon';
-export default Posts = () => {
+export default Header = ({ openEdit }) => {
   const notification = () => {
     alert('notification');
-  };
-  const edit = () => {
-    alert('edit');
   };
   return (
     <View style={styles.header}>
@@ -15,7 +12,7 @@ export default Posts = () => {
       </View>
       <View style={styles.iconArea}>
         <NotificationIcon count={200} onPress={notification} />
-        <Icon name='pencil' size={40} onPress={edit} />
+        <Icon name='pencil' size={40} onPress={openEdit} />
       </View>
     </View>
   );
@@ -29,11 +26,13 @@ const styles = StyleSheet.create({
     columnGap: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#eee',
-    paddingBottom: 10,
+    paddingVertical: 10,
   },
   iconArea: {
     position: 'absolute',
     flexDirection: 'row',
+    columnGap: 15,
+    top: 10,
   },
   icon: {
     height: 30,
